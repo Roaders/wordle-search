@@ -1,6 +1,6 @@
 {
     "name": "wordle-search",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "A search tool for wordle answers",
     "main": "dist/index.js",
     "bin": {
