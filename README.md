@@ -17,6 +17,7 @@ This example searches for a word with `B` as the first letter, `Y` as the third 
 | **length** | **l** | number | Length of word to search for. Defaults to 5 |
 | **exclude** | **e** | string | characters to exclude |
 | **include** | **i** | string | characters to include |
+| **maxDisplayCount** | | number | Maximum results to display. Defaults to 10 |
 | **help** | **h** | boolean | |
 
 [//]: ####ts-command-line-args_write-markdown_replaceAbove  

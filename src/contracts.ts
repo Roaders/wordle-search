@@ -3,5 +3,6 @@ export interface IWordleSearchArgs {
     known?: string;
     include?: string;
     exclude?: string;
+    maxDisplayCount: number;
     help: boolean;
 }

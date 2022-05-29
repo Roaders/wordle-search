@@ -19,8 +19,8 @@ const characterRegExp = /[a-z]/;
 async function wordleSearch() {
     const args = parse<IWordleSearchArgs>(wordleSearchArgConfig, parseOptions);
 
-    const wordlist = await readFile(join(__dirname, '../dictionary/words.txt'));
-    const words = wordlist.toString().split('\r\n');
+    const wordList = await readFile(join(__dirname, '../dictionary/words.txt'));
+    const words = wordList.toString().split('\r\n');
 
     const excludeRegexp = args.exclude != null ? new RegExp(`^[^${args.exclude}]*$`) : undefined;
     const includeCharacters = args.include != null ? Array.from(args.include) : undefined;
@@ -35,9 +35,12 @@ async function wordleSearch() {
         filterWord(word, { length: args.length, excludeRegexp, includeCharacters, knownCharacters })
     );
 
-    console.log({ ...args, words: words.length, matches: matchedWords.length, knownCharacters });
+    const displayCountMessage =
+        matchedWords.length > args.maxDisplayCount ? ` (Only displaying first ${args.maxDisplayCount})` : '';
 
-    matchedWords.forEach((word) => console.log(word));
+    console.log(`${matchedWords.length} results found${displayCountMessage}:`);
+
+    matchedWords.slice(0, args.maxDisplayCount).forEach((word) => console.log(word));
 }
 
 wordleSearch();
