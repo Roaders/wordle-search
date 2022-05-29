@@ -4,6 +4,7 @@ import { parse } from 'ts-command-line-args';
 import { parseOptions, wordleSearchArgConfig } from './constants';
 import { IWordleSearchArgs } from './contracts';
 import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 type FilterOptions = {
     length: number;
@@ -18,7 +19,7 @@ const characterRegExp = /[a-z]/;
 async function wordleSearch() {
     const args = parse<IWordleSearchArgs>(wordleSearchArgConfig, parseOptions);
 
-    const wordlist = await readFile('dictionary/words.txt');
+    const wordlist = await readFile(join(__dirname, '../dictionary/words.txt'));
     const words = wordlist.toString().split('\r\n');
 
     const excludeRegexp = args.exclude != null ? new RegExp(`^[^${args.exclude}]*$`) : undefined;
