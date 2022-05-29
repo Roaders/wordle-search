@@ -1,1 +1,1 @@
-"# wordle-search" 
+# wordle-search
