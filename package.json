@@ -7,10 +7,12 @@
         "clean": "rimraf dist",
         "build": "tsc",
         "build:watch": "tsc --watch",
-        "verify-markdown": "write-markdown -m README.md -j dist/constants.js",
+        "verify-markdown": "write-markdown -vm README.md -j dist/constants.js",
         "write-markdown": "write-markdown -m README.md -j dist/constants.js",
         "lint": "eslint . --ext .ts,.d.ts,.js",
-        "lint:fix": "eslint . --ext .ts,.d.ts,.js --fix"
+        "lint:fix": "eslint . --ext .ts,.d.ts,.js --fix",
+        "prebuild-release": "npm run clean",
+        "build-release": "concurrently --kill-others-on-fail npm:build npm:lint && npm run verify-markdown"
     },
     "repository": {
         "type": "git",
@@ -23,8 +25,10 @@
     },
     "homepage": "https://github.com/Roaders/wordle-search#readme",
     "devDependencies": {
+        "@types/node": "^16.11.36",
         "@typescript-eslint/eslint-plugin": "^5.17.0",
         "@typescript-eslint/parser": "^5.17.0",
+        "concurrently": "^7.2.1",
         "eslint": "^8.12.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-import": "^2.25.4",
@@ -35,8 +39,5 @@
         "rimraf": "^3.0.2",
         "ts-command-line-args": "^2.3.1",
         "typescript": "4.5"
-    },
-    "dependencies": {
-        "@types/node": "^16.11.36"
     }
 }
