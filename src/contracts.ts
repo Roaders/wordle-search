@@ -1,5 +1,4 @@
-
-export interface IWordleSearchArgs{
+export interface IWordleSearchArgs {
     length: number;
     known?: string;
     include?: string;

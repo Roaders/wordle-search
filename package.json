@@ -6,7 +6,11 @@
     "scripts": {
         "clean": "rimraf dist",
         "build": "tsc",
-        "build:watch": "tsc --watch"
+        "build:watch": "tsc --watch",
+        "verify-markdown": "write-markdown -m README.md -j dist/constants.js",
+        "write-markdown": "write-markdown -m README.md -j dist/constants.js",
+        "lint": "eslint . --ext .ts,.d.ts,.js",
+        "lint:fix": "eslint . --ext .ts,.d.ts,.js --fix"
     },
     "repository": {
         "type": "git",
@@ -19,6 +23,15 @@
     },
     "homepage": "https://github.com/Roaders/wordle-search#readme",
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.17.0",
+        "@typescript-eslint/parser": "^5.17.0",
+        "eslint": "^8.12.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-promise": "^6.0.0",
+        "prettier": "^2.6.1",
         "rimraf": "^3.0.2",
         "ts-command-line-args": "^2.3.1",
         "typescript": "4.5"
