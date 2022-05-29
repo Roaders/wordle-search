@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { parse } from 'ts-command-line-args';
 import { parseOptions, wordleSearchArgConfig } from './constants';
 import { IWordleSearchArgs } from './contracts';

@@ -3,6 +3,9 @@
     "version": "0.1.0",
     "description": "A search tool for wordle answers",
     "main": "dist/index.js",
+    "bin": {
+        "wordle-search": "dist/index.js"
+    },
     "scripts": {
         "clean": "rimraf dist",
         "build": "tsc",
