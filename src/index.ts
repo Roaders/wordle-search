@@ -19,17 +19,35 @@ const characterRegExp = /[a-z]/;
 async function wordleSearch() {
     const args = parse<IWordleSearchArgs>(wordleSearchArgConfig, parseOptions);
 
+    let excludeRegexp: RegExp | undefined;
+    let includeCharacters: string[] | undefined;
+    let knownCharacters: (string | undefined)[] | undefined;
+
+    console.log(`Search for ${args.length} letter words:`);
+    if (args.include != null) {
+        includeCharacters = Array.from(args.include.toLowerCase());
+        console.log(`MUST include the letters ${printCharacters(args.include)}`);
+    }
+    if (args.exclude != null) {
+        excludeRegexp = RegExp(`^[^${args.exclude.toLowerCase()}]*$`);
+        console.log(`MUST NOT include the letters ${printCharacters(args.exclude)}`);
+    }
+    if (args.known != null) {
+        const lowerCase = args.known.toLowerCase();
+        knownCharacters = Array.from(lowerCase).map((character) =>
+            characterRegExp.test(character) ? character : undefined
+        );
+        console.log(
+            `With known characters: "${knownCharacters
+                .map((character) => (character != null ? character.toUpperCase() : '_'))
+                .join(' ')}"`
+        );
+    }
+
+    console.log(' ');
+
     const wordList = await readFile(join(__dirname, '../dictionary/words.txt'));
     const words = wordList.toString().split('\r\n');
-
-    const excludeRegexp = args.exclude != null ? new RegExp(`^[^${args.exclude}]*$`) : undefined;
-    const includeCharacters = args.include != null ? Array.from(args.include) : undefined;
-    const knownCharacters =
-        args.known != null
-            ? Array.from(args.known.toLowerCase()).map((character) =>
-                  characterRegExp.test(character) ? character : undefined
-              )
-            : undefined;
 
     const matchedWords = words.filter((word) =>
         filterWord(word, { length: args.length, excludeRegexp, includeCharacters, knownCharacters })
@@ -44,6 +62,12 @@ async function wordleSearch() {
 }
 
 wordleSearch();
+
+function printCharacters(characters: string): string {
+    return Array.from(characters.toUpperCase())
+        .map((char) => `'${char}'`)
+        .join(', ');
+}
 
 function filterWord(word: string, options: FilterOptions): boolean {
     if (word.length != options.length) {
