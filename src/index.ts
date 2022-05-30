@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { parse } from 'ts-command-line-args';
+import { parse, splitContent } from 'ts-command-line-args';
 import { parseOptions, wordleSearchArgConfig } from './constants';
 import { IWordleSearchArgs } from './contracts';
 import { readFile } from 'fs/promises';
@@ -47,7 +47,7 @@ async function wordleSearch() {
     console.log(' ');
 
     const wordList = await readFile(join(__dirname, '../dictionary/words.txt'));
-    const words = wordList.toString().split('\r\n');
+    const words = splitContent(wordList.toString());
 
     const matchedWords = words.filter((word) =>
         filterWord(word, { length: args.length, excludeRegexp, includeCharacters, knownCharacters })
